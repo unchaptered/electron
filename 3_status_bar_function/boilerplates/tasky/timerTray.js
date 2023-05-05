@@ -1,4 +1,4 @@
-const { Tray } = require('electron');
+const { Tray, Menu, app } = require('electron');
 
 
 class TimerTray extends Tray {
@@ -15,14 +15,26 @@ class TimerTray extends Tray {
         this.mainWindow = mainWindow;
 
         this.setToolTip('Timer App');
-        
+
         // 이 구문은 binding이 풀려서 가비지 컬랙터가 앱을 꺼버립니다.
         // this.on('double-click', this._onClickShowAndHide);
-        this.on('double-click', this._onClickShowAndHide.bind(this));
+        this.on('double-click', this._onClick_ShowAndHide.bind(this));
+        this.on('right-click', this._onClick_ShowTrayOption.bind(this));
 
     }
 
-    _onClickShowAndHide(event, bounds) {
+    _onClick_ShowTrayOption() {
+        const menuConfig = Menu.buildFromTemplate([
+            {
+                label: 'Quit',
+                click: () => app.quit()
+            }
+        ])
+
+        this.popUpContextMenu(menuConfig);
+    }
+
+    _onClick_ShowAndHide(event, bounds) {
 
         const taskBarPosition = this.getTaskBarPoisition();
 
