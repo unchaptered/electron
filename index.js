@@ -56,6 +56,12 @@ const menuTemplate = [
                 }
             },
             {
+                label: 'Clear ToDo List',
+                click() {
+                    mainWindow.webContents.send('todo:clear');
+                }
+            },
+            {
                 label: 'quit',
                 accelerator: platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
                 click() {
@@ -71,6 +77,9 @@ if (nodeEnv === ('production' || 'development' || 'staging' || 'test')) app.quit
 if (nodeEnv !== 'production') menuTemplate.push({
     label: 'View',
     submenu: [
+        {
+            role: 'reload',
+        },
         {
             label: 'Toggle Developer Tools',
             accelerator: platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Shift+I',
