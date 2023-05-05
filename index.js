@@ -6,7 +6,12 @@ let mainWindow;
 let addWindow;
 
 app.on('ready', () => {
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation:false
+        }
+    });
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.on('closed', () => app.quit());
     
@@ -20,7 +25,10 @@ function createAddWindow() {
         width: 300,
         height: 200,
         title: 'Add New Todo',
-
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation:false
+        }
     });
     addWindow.loadURL(`file://${__dirname}/add.html`);
     addWindow.on('close', () => addWindow = null);
