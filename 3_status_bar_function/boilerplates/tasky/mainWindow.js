@@ -1,6 +1,6 @@
 const electron = require("electron");
 
-class TimerBrowserWindow extends electron.BrowserWindow {
+class MainWindow extends electron.BrowserWindow {
 
     /** @param { electron.BrowserWindowConstructorOptions | undefined } options  */
     constructor(options) {
@@ -17,5 +17,5 @@ class TimerBrowserWindow extends electron.BrowserWindow {
 
 
 module.exports = {
-    TimerBrowserWindow
+    MainWindow
 }
