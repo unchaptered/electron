@@ -23,14 +23,12 @@ function createAddWindow() {
     });
     addWindow.loadURL(`file://${__dirname}/add.html`);
     addWindow.on('close', () => addWindow = null);
-    // [SOLUTION 1] addWindow.on('close', () => addWindow = null);
 }
 
 // Clean up the Garbage Collector.
 ipcMain.on('todo:add', (event, todo) => {
     mainWindow.webContents.send('todo:add', todo);
     addWindow.close();
-    // [SOLUTION 2] addWindow = null;
 });
 
 
