@@ -4,6 +4,7 @@ const { app, BrowserWindow } = electron;
 
 app.on('ready', () => {
 
-    new BrowserWindow({});
+    const mainWindow = new BrowserWindow({});
+    mainWindow.loadURL('http://google.com');
 
 });
