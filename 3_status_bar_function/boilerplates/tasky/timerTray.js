@@ -16,11 +16,8 @@ class TimerTray extends Tray {
 
         this.setToolTip('Timer App');
 
-        // 이 구문은 binding이 풀려서 가비지 컬랙터가 앱을 꺼버립니다.
-        // this.on('double-click', this._onClickShowAndHide);
         this.on('double-click', this._onClick_ShowAndHide.bind(this));
         this.on('right-click', this._onClick_ShowTrayOption.bind(this));
-
     }
 
     _onClick_ShowTrayOption() {
