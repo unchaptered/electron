@@ -47,3 +47,18 @@ const menuTemplate = [
         ]
     }
 ];
+
+const nodeEnv = process.env.NODE_ENV
+if (nodeEnv === ('production' || 'development' || 'staging' || 'test')) app.quit();
+if (nodeEnv !== 'production') menuTemplate.push({
+    label: 'View',
+    submenu: [
+        {
+            label: 'Toggle Developer Tools',
+            accelerator: platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Shift+I',
+            click(item, focusedWindow) {
+                focusedWindow.toggleDevTools();
+            }
+        }
+    ]
+})
