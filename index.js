@@ -19,7 +19,8 @@ function createAddWindow() {
     addWindow = new BrowserWindow({
         width: 300,
         height: 200,
-        title: 'Add New Todo'
+        title: 'Add New Todo',
+
     });
     addWindow.loadURL(`file://${__dirname}/add.html`);
     addWindow.on('close', () => addWindow = null);
