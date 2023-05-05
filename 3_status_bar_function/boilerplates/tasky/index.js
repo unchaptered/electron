@@ -22,24 +22,13 @@ app.on('ready', () => {
     mainWindow = new MainWindow(traySize);
     mainWindow.loadURL(`file://${__dirname}/src/index.html`);
 
-    // const subWindow = new BrowserWindow({
-    //     width: traySize.width,
-    //     height: traySize.height,
-    //     show: true,
-    //     frame: false,
-    //     resizable: false,
-    // });
+    // SubWindows
     const { screen } = require('electron');
-
     const displays = screen.getAllDisplays();
     const display = displays[0];
     const { workArea } = display;
     const { width: workAreaWidth, height: workAreaHeight } = workArea;
-
-    const subTraySize = { width: 300, height: 50};
-
-    console.log(workAreaWidth - subTraySize.width, workAreaHeight - subTraySize.height - 5);
-    
+    const subTraySize = { width: 200, height: 50};
     subWindow = new SubWindow(subTraySize);
     subWindow.loadURL(`file://${__dirname}/src/sub_index.html`);
     subWindow.setPosition(workAreaWidth - subTraySize.width, workAreaHeight - subTraySize.height - 5);
@@ -53,6 +42,5 @@ app.on('ready', () => {
 
 
 ipcMain.on('update-timer', (event, timerLeftTime) => {
-    console.log('야옹', timerLeftTime);
     subWindow.webContents.send('update-timer:preview', timerLeftTime);
 });

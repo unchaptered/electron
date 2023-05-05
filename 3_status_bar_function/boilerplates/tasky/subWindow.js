@@ -8,6 +8,8 @@ class SubWindow extends BrowserWindow {
             title:'title',
             width: subTraySize.width,
             height: subTraySize.height,
+            alwaysOnTop: true,
+            closable: false,
             show: false,
             frame: false,
             transparent: true,

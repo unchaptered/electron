@@ -10,6 +10,11 @@ class MainWindow extends electron.BrowserWindow {
             show: false,
             frame: false,
             resizable: false,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation:false,
+                backgroundThrottling: false
+            }
         });
         
         this.on('blur', this._onBlurHide.bind(this))
