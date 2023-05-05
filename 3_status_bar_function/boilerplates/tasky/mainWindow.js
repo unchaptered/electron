@@ -2,11 +2,16 @@ const electron = require("electron");
 
 class MainWindow extends electron.BrowserWindow {
 
-    /** @param { electron.BrowserWindowConstructorOptions | undefined } options  */
-    constructor(options) {
-        super(options);
-
-        this.loadURL(`file://${__dirname}/src/index.html`)
+    /** @param {{ width: number, height: number }} options  */
+    constructor(traySize) {
+        super({
+            width: traySize.width,
+            height: traySize.height,
+            show: false,
+            frame: false,
+            resizable: false,
+        });
+        
         this.on('blur', this._onBlurHide.bind(this))
     }
 
