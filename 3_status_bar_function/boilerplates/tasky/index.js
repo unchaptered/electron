@@ -52,8 +52,9 @@ function getTaskBarPoisition() {
 
     const displays = screen.getAllDisplays();
     const display = displays[0];
-    // const { bounds, workArea }= display;
-    const { bounds, workArea } = getMockData('right-side');
+
+    const { bounds, workArea }= display;
+    // const { bounds, workArea } = getMockData('right-side');
 
     const { width: boundsWidth, height: boundsHeight } = bounds;
     const { width: workAreaWidth, height: workAreaHeight } = workArea;
@@ -126,6 +127,23 @@ function getTrayPosition(taskBarPosition, mouseClickPosition, traySize) {
 
 }
 
+class TimerTray extends Tray {
+
+    constructor(iconPath, taskBarPosition, traySize) {
+        super(iconPath);
+
+        this.on('double-click', (event, bounds) => {
+            const { x, y } = getTrayPosition(taskBarPosition, bounds, traySize);
+            const { width, height } = mainWindow.getBounds();
+    
+            mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+            mainWindow.setBounds({ x, y, width, height });
+        });
+
+    }
+
+}
+
 // const displays = screen.getAllDisplays();
 app.on('ready', () => {
 
@@ -144,15 +162,6 @@ app.on('ready', () => {
     const iconName = platform === 'win32' ? 'windows-icon.png' : 'iconTemplate.png';
     const iconPath = path.join(__dirname, `./src/assets/${iconName}`);
 
-    tray = new Tray(iconPath);
-    tray.on('double-click', (event, bounds) => {
-
-        const { x, y } = getTrayPosition(taskBarPosition, bounds, traySize);
-        const { width, height } = mainWindow.getBounds();
-
-        mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-        mainWindow.setBounds({ x, y, width, height });
-
-    });
+    new TimerTray(iconPath, taskBarPosition, traySize);
 
 });
