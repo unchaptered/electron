@@ -29,7 +29,6 @@
             const { path } = file;
 
             ipcRenderer.send('video:submit', path);
-
         });
 
         ipcRenderer.on('video:metadata', (event, duration) => {
