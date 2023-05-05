@@ -17,10 +17,17 @@
     </form>
 
     <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+
         document.querySelector('form').addEventListener('submit', (event) => {
             event.preventDefault();
 
-            debugger;
+            const file = document.querySelector('input').files[0];
+            const { path } = file;
+
+            ipcRenderer.send('video:submit', path);
+
         });
     </script>
 </body>
