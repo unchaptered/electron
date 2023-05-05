@@ -13,15 +13,25 @@ app.on('ready', () => {
 });
 
 // Hoisting
+const platform = process.platform;
+if (platform === ('darwin' || 'win32')) app.quit();
+
 const menuTemplate = [
     {
         label: 'File',
         submenu: [
             {
                 label: 'New Todo'
+            },
+            {
+                label: 'quit',
+                accelerator: platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+                click() {
+                    app.quit();
+                }
             }
         ]
     }
 ];
 
-if (process.platform !== 'darwin') menuTemplate.shift();
+// if (process.platform !== 'darwin') menuTemplate.shift();
