@@ -1,6 +1,6 @@
 const electron = require('electron');
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 let addWindow;
@@ -9,6 +9,7 @@ app.on('ready', () => {
     mainWindow = new BrowserWindow({});
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.on('closed', () => app.quit());
+    
 
     const mainMenu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(mainMenu);
@@ -21,7 +22,17 @@ function createAddWindow() {
         title: 'Add New Todo'
     });
     addWindow.loadURL(`file://${__dirname}/add.html`);
+    addWindow.on('close', () => addWindow = null);
+    // [SOLUTION 1] addWindow.on('close', () => addWindow = null);
 }
+
+// Clean up the Garbage Collector.
+ipcMain.on('todo:add', (event, todo) => {
+    mainWindow.webContents.send('todo:add', todo);
+    addWindow.close();
+    // [SOLUTION 2] addWindow = null;
+});
+
 
 // Hoisting
 const platform = process.platform;
