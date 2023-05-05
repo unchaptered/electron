@@ -11,18 +11,24 @@ class TimerTray extends Tray {
     constructor(iconPath, traySize, mainWindow) {
         super(iconPath);
 
-        this.on('double-click', (event, bounds) => {
+        this.traySize = traySize;
+        this.mainWindow = mainWindow;
 
-            const taskBarPosition = this.getTaskBarPoisition();
+        this.on('double-click', this._onClickShowAndHide);
 
-            const { x, y } = this.getTrayPosition(taskBarPosition, bounds, traySize);
+    }
 
-            const { width, height } = mainWindow.getBounds();
+    _onClickShowAndHide(event, bounds) {
 
-            mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-            mainWindow.setBounds({ x, y, width, height });
-        });
+        const taskBarPosition = this.getTaskBarPoisition();
 
+        const { x, y } = this.getTrayPosition(taskBarPosition, bounds, this.traySize);
+
+        const { width, height } = this.mainWindow.getBounds();
+
+        this.mainWindow.isVisible() ? this.mainWindow.hide() : this.mainWindow.show();
+        this.mainWindow.setBounds({ x, y, width, height });
+        
     }
 
     /** @param { 'up-side' | 'down-side' | 'left-side' | 'right-side'} positionSide */
