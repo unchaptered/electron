@@ -1,3 +1,16 @@
-# ElectronCode
+[< backward](../README.md)
 
-This repository contains both boilerplates and completed code.  Check out the `boilerplates` and `completed_code` dirs.
+# Tray Application with Status Bar
+
+## Get Started
+
+Please run A and B at the same time.
+
+```
+cd ./boilerplates/tasky
+
+npm i
+
+npm run start
+npm run electron
+```

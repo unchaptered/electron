@@ -114,6 +114,7 @@ function getTrayPosition(taskBarPosition, mouseClickPosition, traySize) {
             y: mouseY - trayHeight - 5,
         }
     }
+
     const mapResult = map[positionSide];
     if (mapResult === undefined) {
         console.log("positionSide is must be 'up-side' | 'down-side' | 'left-side' | 'right-side'!!!");
